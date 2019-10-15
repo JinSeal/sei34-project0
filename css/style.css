@@ -102,7 +102,8 @@ h2 {
 
 
 td {
-    padding: 3vw;
+    width: 11.5vw;
+    height: 11.5vw;
     border: 1px solid lightblue;
     background-color: white;
     border-radius: 20px;
@@ -177,29 +178,33 @@ button:active {
 }
 
 .shake {
-  animation: shake 2s both;
+  animation: shake 4s infinite both;
+  animation-delay: 2s;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
 }
 
 @keyframes shake {
-  10%, 90% {
+  5%, 45% {
 
-    transform: rotate(90deg) scale(2) translate(4px 5px);
+    transform: rotate(90deg) scale(1.8) translate(4px 5px);
   }
 
-  20%, 80% {
-    transform: rotate(-180deg) scale(2.2);
+  4%, 16% {
+    transform: rotate(-120deg) scale(2);
   }
 
-  30%, 50%, 70% {
+  6%, 10%, 14% {
     transform: rotate(90deg) scale(1.5) translate(-2px -3px);
   }
 
-  40%, 60% {
-    transform: rotate(360deg) scale(1.2);
+  8%, 12% {
+    transform: rotate(180deg) scale(1.4);
   }
+  48% {
+    transform: none;
+    }
 }
 
 span {

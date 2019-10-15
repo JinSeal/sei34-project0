@@ -19,7 +19,7 @@
                     <h2>Player 1</h2>
                     <p>Name: <input type="text" class="name-input" id="player1-name" value="Seal"></p>
                     <p>Symbol: <input type="text" class="symbol" id="player1-symbol" value="X"></p>
-                    <p>Win counter: <span> 0 </span></p>
+                    <p>Win counter:<span id="player1-win-counter"> 0 </span></p>
                     <div class="photo" id="player1-photo"></div>
                     <button type="button" class="join" id="play1join">Join
                     </button>
@@ -30,19 +30,19 @@
                 </button>
                 <table class="board">
                     <tr class='row' id='0'>
-                        <td class='column' id='0'>00</td>
-                        <td class='column' id='1'>11</td>
-                        <td class='column' id='2'>22</td>
+                        <td class='column' id='r0c0'></td>
+                        <td class='column' id='r0c1'></td>
+                        <td class='column' id='r0c2'></td>
                     </tr>
                     <tr class='row' id='1'>
-                        <td class='column' id='0'>33</td>
-                        <td class='column' id='1'>44</td>
-                        <td class='column' id='2'>55</td>
+                        <td class='column' id='r1c0'></td>
+                        <td class='column' id='r1c1'></td>
+                        <td class='column' id='r1c2'></td>
                     </tr>
                     <tr class='row' id='2'>
-                        <td class='column' id='0'>66</td>
-                        <td class='column' id='1'>77</td>
-                        <td class='column' id='2'>88</td>
+                        <td class='column' id='r2c0'></td>
+                        <td class='column' id='r2c1'></td>
+                        <td class='column' id='r2c2'></td>
                     </tr>
                 </table>
 
@@ -53,7 +53,7 @@
                     <h2>Player 2</h2>
                     <p>Name: <input type="text" class="name-input" value='Big cat' id="player2-name"></p>
                     <p>Symbol: <input type="text" class="symbol" value="O" id="player2-symbol"></p>
-                    <p>Win counter: <span> 0 </span></p>
+                    <p>Win counter: <span id="player2-win-counter"> 0 </span></p>
                     <div class="photo" id="player1-photo"></div>
                     <button type="button" class="join" id="play2join">Join
                     </button>
