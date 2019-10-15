@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Tic Tac Toe</title>
+    <script src="js/jquery-1.7.2.js" charset="utf-8"></script>
+    <script src="js/tictactoe.js" charset="utf-8"></script>
+    <script src="js/script.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1><span>T</span><span>I</span><span>C</span><br><span>T</span><span>A</span><span>C</span><br><span>T</span><span>O</span><span>E</span></h1>
+    </header>
+    <main>
+        <div class="container">
+            <div class="player-container" >
+                <div class= "player" id="player1">
+                    <h2>Player 1</h2>
+                    <p>Name: <input type="text" class="name-input" id="player1-name" value="Seal"></p>
+                    <p>Symbol: <input type="text" class="symbol" id="player1-symbol" value="X"></p>
+                    <p>Win counter: <span> 0 </span></p>
+                    <div class="photo" id="player1-photo"></div>
+                    <button type="button" class="join" id="play1join">Join
+                    </button>
+                </div>
+            </div>
+            <div class="ttt">
+                <button type="button" class="play shake" id="playbutton">Play
+                </button>
+                <table class="board">
+                    <tr class='row' id='0'>
+                        <td class='column' id='0'>00</td>
+                        <td class='column' id='1'>11</td>
+                        <td class='column' id='2'>22</td>
+                    </tr>
+                    <tr class='row' id='1'>
+                        <td class='column' id='0'>33</td>
+                        <td class='column' id='1'>44</td>
+                        <td class='column' id='2'>55</td>
+                    </tr>
+                    <tr class='row' id='2'>
+                        <td class='column' id='0'>66</td>
+                        <td class='column' id='1'>77</td>
+                        <td class='column' id='2'>88</td>
+                    </tr>
+                </table>
+
+
+            </div>
+            <div class="player-container" >
+                <div class= "player" id="player2">
+                    <h2>Player 2</h2>
+                    <p>Name: <input type="text" class="name-input" value='Big cat' id="player2-name"></p>
+                    <p>Symbol: <input type="text" class="symbol" value="O" id="player2-symbol"></p>
+                    <p>Win counter: <span> 0 </span></p>
+                    <div class="photo" id="player1-photo"></div>
+                    <button type="button" class="join" id="play2join">Join
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+</html>

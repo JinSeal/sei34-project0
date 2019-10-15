@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Mansalva&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Titan+One&display=swap&subset=latin-ext');
+
+* {
+    /* border: 1px solid grey; */
+    padding: 0;
+    margin: 0;
+    font-family: Mansalva, sans-serif;
+    font-size: 25px;
+}
+
+header {
+    text-align:center
+}
+
+div.blobs_ {
+    display:block;
+    position:absolute;
+}
+
+h1 {
+    background-color: lightblue;
+    padding: 4vh;
+
+}
+
+h1 span {
+    font-family: "Fascinate Inline", sans-serif;
+    color: orange;
+    font-size: 70px;
+    line-height: 0.9em;
+    text-align: center;
+    letter-spacing: 40px;
+    background-color: white;
+    border-radius: 100%;
+
+}
+
+
+
+h2 {
+    font-family: "Fascinate Inline", sans-serif;
+    color: orange;
+    font-size: 40px;
+    margin: 0 10%;
+}
+
+
+
+.container {
+    display: grid;
+    grid-column: 3;
+    grid-template-columns: 25% 50% 25%;
+    background-color: antiquewhite;
+    align-items: flex-start;
+
+    /* grid-column-gap: 1vw; */
+    }
+}
+
+.player-container {
+    margin: 0 auto;
+    }
+
+.player {
+    position: relative;
+    margin: 3vh auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.player p{
+    margin: 1vh 10%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 0 5px;
+}
+
+.photo {
+    width: 20vw;
+    height: 20vw;
+    margin: 1vh auto;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.ttt {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.board {
+    margin: 0 auto;
+    border: 3px solid lightblue;
+    border-radius: 20px;
+    padding: 1vh;
+    background-color: white;
+}
+
+
+td {
+    padding: 3vw;
+    border: 1px solid lightblue;
+    background-color: white;
+    border-radius: 20px;
+    font-size: 70px;
+}
+
+td:hover {
+    background-color: lightblue;
+    border: 1px inset lightblue;
+    cursor: pointer;
+}
+
+button {
+    margin: 3vh auto;
+    width: 30%;
+    padding: 1vh;
+    text-align: center;
+    border-radius: 15px;
+    font-family: "Fascinate Inline", sans-serif;
+    font-size: 30px;
+    outline: 0;
+    color: white;
+}
+button.play {
+    background-color: orange;
+}
+button.join {
+    background-color: lightblue;
+}
+
+
+input {
+    margin-left: 20px;
+    padding: 10px 5px;
+    display: inline-block;
+    background-color: white;
+    width: 50%;
+    border: 0;
+
+}
+
+input:hover {
+    transform: scale(1.5);
+    border-radius: 15px;
+    cursor: text;
+    border: 5px inset orange;
+}
+
+
+button.play:hover {
+    transform: scale(1.5);
+    border-radius: 15px;
+    cursor: pointer;
+    border: 5px inset orange;
+    background-color: white;
+    color: orange;
+    outline: 0;
+}
+
+button.join:hover {
+    background-color: white;
+    transform: scale(1.5);
+    border-radius: 15px;
+    cursor: pointer;
+    border: 5px inset lightblue;
+    color: lightblue;
+    outline:0;
+}
+
+button:active {
+  transform: translateY(4px);
+}
+
+.shake {
+  animation: shake 2s both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+
+    transform: rotate(90deg) scale(2) translate(4px 5px);
+  }
+
+  20%, 80% {
+    transform: rotate(-180deg) scale(2.2);
+  }
+
+  30%, 50%, 70% {
+    transform: rotate(90deg) scale(1.5) translate(-2px -3px);
+  }
+
+  40%, 60% {
+    transform: rotate(360deg) scale(1.2);
+  }
+}
+
+span {
+    background-color: white;
+}
