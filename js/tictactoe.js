@@ -1,11 +1,12 @@
 
 
-// #__Planning log
+// #__Planning log__
 // 1 player object;
 // 2 initiate board;
 // 3 winRules()
 // 4 makeMove()
-// 5 checkWin
+// 5 checkWin()
+// 6 AI moves()
 
 const ttt = {
 
@@ -25,6 +26,7 @@ const ttt = {
                 this.players = this.players.reverse()
             }
         }
+        localStorage.setItem('ttt.players', JSON.stringify(this.players));
         return player;
     },
 
@@ -34,8 +36,8 @@ const ttt = {
             if (this.players[i]['name'] === name) {
                 this.players.splice(i, 1);
             }
-
         }
+        localStorage.setItem('ttt.players', JSON.stringify(this.players));
     },
 
     initBoard: function(size=3) {
@@ -48,6 +50,7 @@ const ttt = {
                 }
             }
         }
+        localStorage.setItem('ttt.board', JSON.stringify(this.board));
         return this.board;
     },
 
@@ -102,7 +105,6 @@ const ttt = {
     playOrder: function(){
         let firstHand = Math.floor(Math.random()*2);
         let player = this.players[firstHand];
-        // alert(`${player['name']} goes first.`);
         return firstHand;
     },
 
@@ -110,6 +112,7 @@ const ttt = {
         const symbol = this.players[playerIndex].symbol;
         if (!this.board[row][column]) {
             this.board[row][column] = symbol;
+            localStorage.setItem('ttt.board', JSON.stringify(this.board));
             console.log(`${this.players[playerIndex].name} takes move`);
             let i =0;
             for (i; i<this.emptySpot.length; i++) {
@@ -118,6 +121,7 @@ const ttt = {
                 }
             };
             this.emptySpot.splice(i, 1);
+            localStorage.setItem('ttt.emptySpot', JSON.stringify(this.emptySpot));
             return true
         }
         console.log(`Position has been taken.`);
@@ -130,12 +134,13 @@ const ttt = {
             this.players[currentPlayerIndex]['winCounter'] +=1;
             return true;
         }
-
     },
 
     reset: function() {
         this.board= [];
         this.emptySpot= [];
+        localStorage.setItem('ttt.board', JSON.stringify(this.board));
+        localStorage.setItem('ttt.emptySpot', JSON.stringify(this.emptySpot));
     }
 
     //     aiMove: function() {
