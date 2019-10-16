@@ -43,6 +43,8 @@ const joinPlayer = function(num) {
                 playing = false;
                 setTimeout(playButtonToggle(), 1500);
                 $(`#player${currentPlayerIndex+1}-win-counter`).text (ttt.players[currentPlayerIndex]['winCounter']);
+                localStorage.setItem('move', '0')
+                localStorage.setItem('ttt.board', '[]')
             } else if (moves === $('td').length-1) {
                 const message = `DRAW! How could it happen !!!`
                 showMsg(message);
@@ -84,7 +86,6 @@ const joinPlayer = function(num) {
         const text = $(node).text();
         size = text.slice(0,1);
         $('.dropbtn').text(text);
-        localStorage.setItem('size', size);
         return size;
     }
 
@@ -100,7 +101,48 @@ const joinPlayer = function(num) {
                 $tr.append($td);
             }
         }
+        localStorage.setItem('size', size);
         ttt.initBoard(size);
+    }
+
+    const loadingLocalStorage = () => {
+        const message = 'Restore last game.'
+        $('.message-box').text(message);
+        $('.alert').show();
+
+        currentPlayerIndex = //() => {
+         JSON.parse(localStorage['currentPlayerIndex'])//? JSON.parse(localStorage['currentPlayerIndex']):null}
+// } JSON.parse(localStorage['currentPlayerIndex']);
+        moves = //() =>
+        JSON.parse(localStorage['moves'])//? JSON.parse(localStorage['moves']):null;
+
+        playing = JSON.parse(localStorage['playing']);
+        ttt.players = JSON.parse(localStorage['ttt.players']),
+        ttt.board = JSON.parse(localStorage['ttt.board']);
+        ttt.emptySpot = JSON.parse(localStorage['ttt.emptySpot']);
+        console.log(localStorage['size']);
+        size = JSON.parse(localStorage['size']);
+
+
+        $('#player1-name').val(ttt.players[0]['name'])
+        $(`#player1-symbol`).val(ttt.players[0]['symbol']);
+        $(`#player1-win-counter`).text(ttt.players[0]['winCounter']);
+        $('#player2-name').val(ttt.players[1]['name'])
+        $(`#player2-symbol`).val(ttt.players[1]['symbol']);
+        $(`#player2-win-counter`).text(ttt.players[1]['winCounter']);
+
+        if (playing) {
+            buildBoard(size);
+            for (let p = 0; p < ttt.players.length; p++) {
+                for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        if (ttt.board[i][j]=== ttt.players[p]['symbol']) {
+                            $(`#r${i}c${j}`).text($(`#player${p+1}-symbol`).val());
+                        }
+                    }
+                }
+            }
+        }
     }
 
     let currentPlayerIndex;
@@ -112,6 +154,11 @@ const joinPlayer = function(num) {
 
 
     const setup = function() {
+        if (localStorage.length) {
+            loadingLocalStorage();
+        }
+        // getLocalStorage();
+        // displayLocalStorage();
 
         playButtonToggle();
 
@@ -138,15 +185,10 @@ const joinPlayer = function(num) {
 
         $(document).on('click', 'td', (event) => updateMoves(event.target));
 
-
-        joinPlayer('1');
-        joinPlayer('2');
-
     }
 
 
     // to do list:
-    // local LocalStorage
     // token with picture
     // online game
     // AI moves

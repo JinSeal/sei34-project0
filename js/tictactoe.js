@@ -132,7 +132,8 @@ const ttt = {
     winCheck: function(currentPlayerIndex,symbol) {
         if (this.horizontal(symbol)||this.vertical(symbol)||this.diagonalI(symbol)||this.diagonalII(symbol)) {
             this.players[currentPlayerIndex]['winCounter'] +=1;
-            return true;
+            localStorage.setItem('ttt.players', JSON.stringify(this.players))
+;            return true;
         }
     },
 
