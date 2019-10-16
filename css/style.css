@@ -8,6 +8,7 @@
     margin: 0;
     font-family: Mansalva, sans-serif;
     font-size: 25px;
+    /* outline: 0; */
 }
 
 header {
@@ -56,12 +57,12 @@ h2 {
     align-items: flex-start;
 
     /* grid-column-gap: 1vw; */
-    }
+}
 }
 
 .player-container {
     margin: 0 auto;
-    }
+}
 
 .player {
     position: relative;
@@ -80,7 +81,8 @@ h2 {
 .photo {
     width: 20vw;
     height: 20vw;
-    margin: 1vh auto;
+    margin: 5vh auto;
+    margin-bottom: 25vh;
     background-color: white;
     border-radius: 10px;
 }
@@ -92,22 +94,32 @@ h2 {
     flex-direction: column;
 }
 
+.indicator {
+    height: 5vw;
+    width: 100%;
+    border: 2px solid grey;
+    /* margin: 1vw auto; */
+}
+
 .board {
     margin: 0 auto;
     border: 3px solid lightblue;
     border-radius: 20px;
+    width: 37vw;
+    height: 37vw;
     padding: 1vh;
     background-color: white;
 }
 
 
 td {
-    width: 11.5vw;
-    height: 11.5vw;
+    width: 33%;
+    height: 33%;
     border: 1px solid lightblue;
     background-color: white;
     border-radius: 20px;
     font-size: 70px;
+    text-align: center;
 }
 
 td:hover {
@@ -116,24 +128,44 @@ td:hover {
     cursor: pointer;
 }
 
+.button-box {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 2vw;
+}
+
 button {
     margin: 3vh auto;
-    width: 30%;
+    width: 35%;
     padding: 1vh;
     text-align: center;
     border-radius: 15px;
     font-family: "Fascinate Inline", sans-serif;
     font-size: 30px;
-    outline: 0;
     color: white;
 }
+
+button:focus {
+    outline: 0;
+}
 button.play {
+    display: inline-block;
     background-color: orange;
 }
 button.join {
     background-color: lightblue;
 }
 
+button.leave {
+    background-color: lightgray;
+}
+
+button.alertbutton {
+    background-color: #f35252;
+    margin: 0 auto;
+    font-family: Mansalva, sans-serif;
+    width: 20%;
+}
 
 input {
     margin-left: 20px;
@@ -142,7 +174,7 @@ input {
     background-color: white;
     width: 50%;
     border: 0;
-
+    outline: 0;
 }
 
 input:hover {
@@ -152,61 +184,161 @@ input:hover {
     border: 5px inset orange;
 }
 
-
-button.play:hover {
+button:hover {
     transform: scale(1.5);
     border-radius: 15px;
     cursor: pointer;
+}
+
+
+button.play:hover {
     border: 5px inset orange;
     background-color: white;
     color: orange;
-    outline: 0;
 }
 
 button.join:hover {
     background-color: white;
-    transform: scale(1.5);
-    border-radius: 15px;
-    cursor: pointer;
     border: 5px inset lightblue;
     color: lightblue;
-    outline:0;
 }
 
-button:active {
-  transform: translateY(4px);
+button.leave:hover {
+    background-color: white;
+    border: 5px inset lightgray;
+    color: lightgray;
 }
+
+button.alertbutton:hover {
+    background-color: white;
+    border: 5px inset #f35252;
+    color: #f35252;
+}
+
+/* button:active {
+transform: translateY(4px);
+} */
 
 .shake {
-  animation: shake 4s infinite both;
-  animation-delay: 2s;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
+    animation: shake 4s infinite both;
+    animation-delay: 2s;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
 }
 
 @keyframes shake {
-  5%, 45% {
+    5%, 45% {
 
-    transform: rotate(90deg) scale(1.8) translate(4px 5px);
-  }
+        transform: rotate(90deg) scale(1.8) translate(4px 5px);
+    }
 
-  4%, 16% {
-    transform: rotate(-120deg) scale(2);
-  }
+    4%, 16% {
+        transform: rotate(-120deg) scale(2);
+    }
 
-  6%, 10%, 14% {
-    transform: rotate(90deg) scale(1.5) translate(-2px -3px);
-  }
+    6%, 10%, 14% {
+        transform: rotate(90deg) scale(1.5) translate(-2px -3px);
+    }
 
-  8%, 12% {
-    transform: rotate(180deg) scale(1.4);
-  }
-  48% {
-    transform: none;
+    8%, 12% {
+        transform: rotate(180deg) scale(1.4);
+    }
+    48% {
+        transform: none;
     }
 }
 
 span {
     background-color: white;
 }
+
+.alert {
+    position: absolute;
+    z-index: 99;
+    width: 40vw;
+    height: 35vh;
+    top: 600px;
+    left: 30vw;
+    background: rgba(255, 255, 255, 0.8);
+    border-top: 10px solid #f37f7f ;
+    border-bottom: 10px solid #f37f7f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* visibility: hidden; */
+}
+
+.alert p {
+    width: 500px;
+    height: 200px;
+    text-align: center;
+    margin: 4% 5% auto 5%;
+}
+
+h2 > span {
+
+}
+
+
+.function-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+#canvas {
+    margin: 0 2vw;
+    padding-top: 0;
+}
+
+.dropbtn {
+    color: orange;
+    border-radius: 15px;
+    border: 5px inset orange;
+    cursor: pointer;
+    width: 90%;
+    font-size: 24px;
+    font-family: Mansalva, sans-serif;
+    margin: 10px 0;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 130px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 120px;
+    z-index: 90;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    text-align: center;
+    color: orange;
+    border-radius: 15px;
+    background-color: white;
+    border: 5px inset lightgray;
+    padding: 6px 12px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    transform: scale(1.3);
+}
+
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+</style>

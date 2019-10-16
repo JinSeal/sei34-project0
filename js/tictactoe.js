@@ -13,14 +13,29 @@ const ttt = {
     board: [],
     emptySpot: [],
 
-    initPlayer: function(name, symbol) {
+    initPlayer: function(id, name, symbol) {
         if (this.players.length < 2) {
             let winCounter = 0;
-            let index = this.players.length;
-            player = {name, symbol, winCounter, index};
+            player = {id, name, symbol, winCounter};
             this.players.push(player)
         }
+
+        if (this.players.length === 2) {
+            if (this.players[0]['id'] > this.players[1]['id']) {
+                this.players = this.players.reverse()
+            }
+        }
         return player;
+    },
+
+
+    rmPlayer: function(name) {
+        for (let i = 0; i < this.players.length; i++) {
+            if (this.players[i]['name'] === name) {
+                this.players.splice(i, 1);
+            }
+
+        }
     },
 
     initBoard: function(size=3) {
@@ -115,6 +130,7 @@ const ttt = {
             this.players[currentPlayerIndex]['winCounter'] +=1;
             return true;
         }
+
     },
 
     reset: function() {
