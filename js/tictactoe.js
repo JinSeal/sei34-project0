@@ -22,7 +22,7 @@ const ttt = {
             player = {id, name, symbol, winCounter};
             this.players.push(player)
         }
-
+        // validation and sort players order
         if (this.players.length === 2) {
             if (this.players[0]['name'] === 'AI') {
                 this.players[0]['id'] = '3';
@@ -127,11 +127,12 @@ const ttt = {
         if (!this.board[row][column]) {
 
             this.board[row][column] = symbol;
-            localStorage.setItem('ttt.board', JSON.stringify(this.board));
             console.log(`${this.players[playerIndex].name} takes move`);
             this.updateEmptySpots(row, column);
             this.occupiedSpot.push([row, column]);
 
+            localStorage.setItem('ttt.board', JSON.stringify(this.board));
+            localStorage.setItem('ttt.occupiedSpot', JSON.stringify(this.occupiedSpot));
             return true
         } else {
             console.log(`Position has been taken.`);
@@ -153,6 +154,7 @@ const ttt = {
         this.emptySpots= [];
         localStorage.setItem('ttt.board', JSON.stringify(this.board));
         localStorage.setItem('ttt.emptySpot', JSON.stringify(this.emptySpot));
+        localStorage.setItem('ttt.occupiedSpot', JSON.stringify(this.occupiedSpot));
     },
 
     winCombo: [],
@@ -175,11 +177,13 @@ const ttt = {
         }
         this.winCombo.push(lid1);
         this.winCombo.push(lid2);
+
+        localStorage.setItem('ttt.winCombo', JSON.stringify(this.winCombo));
         return this.winCombo;
     },
 
     emptySpots:[],
-    emptySpotsMediumLevel: [],
+    emptySpotsEasyLevel: [],
     emptySpotsHardLevel: [],
 
     genEmptySpots: function() {
@@ -189,6 +193,7 @@ const ttt = {
                 this.emptySpots.push([i, j]);
             }
         }
+        localStorage.setItem('ttt.emptySpots', JSON.stringify(this.emptySpots));
     },
 
     updateEmptySpots: function(row, column) {
@@ -199,6 +204,7 @@ const ttt = {
             }
         }
         this.emptySpots.splice(i, 1)
+        localStorage.setItem('ttt.emptySpots', JSON.stringify(this.emptySpots));
     },
 
     aiRandomMove: function() {
@@ -206,7 +212,7 @@ const ttt = {
     },
 
     aiEasy: function() {
-        this.emptySpotsMediumLevel =[];
+        this.emptySpotsEasyLevel =[];
         if (this.occupiedSpot.length<2) {
             return this.aiRandomMove();
         } else {
@@ -214,11 +220,14 @@ const ttt = {
             console.log(lastMove);
             for (let i of this.emptySpots) {
                 if (Math.abs(i[0]-Number(lastMove[0]))<=1 && Math.abs(i[1]-Number(lastMove[1])) <=1) {
-                    this.emptySpotsMediumLevel.push(i);
+                    this.emptySpotsEasyLevel.push(i);
                 }
             }
+            localStorage.setItem('ttt.emptySpotsEasyLevel', JSON.stringify(this.emptySpotsEasyLevel));
         }
-        let pos = this.emptySpotsMediumLevel[Math.floor(Math.random()* this.emptySpotsMediumLevel.length)]
+
+
+        let pos = this.emptySpotsEasyLevel[Math.floor(Math.random()* this.emptySpotsEasyLevel.length)]
         return pos? pos: this.aiRandomMove();
     },
 
@@ -226,6 +235,27 @@ const ttt = {
 
         const ai = this.players[1]
         const player = this.players[0];
+        let winPoint;
+
+        for (let combo of this.winCombo) {
+            let counter = 0;
+
+            for (let pos of combo) {
+                if (this.board[pos[0]][pos[1]] === ai['symbol']) {
+                    counter += 1;
+                } else if (!this.board[pos[0]][pos[1]]) {
+                    winPoint = [pos[0], pos[1]];
+                } else {break}
+            }
+            if (counter === this.board.length-1) {
+                if (winPoint) {
+                    return winPoint;
+                }
+            }
+        }
+
+
+
         let filteredCombo = [];
         for (let combo of this.winCombo) {
             for (let pos of combo) {
@@ -235,6 +265,7 @@ const ttt = {
                 }
             }
         }
+
 
         let defendCombo =[];
         let filteredComboLength = filteredCombo.length;
@@ -294,9 +325,11 @@ const ttt = {
     aiHardMove: function(playerIndex) {
         const pos = this.aiHard();
         this.makeMove(playerIndex, String(pos[0]), String(pos[1]));
-        console.log(pos);
         return pos;
+
+
     }
+
 }
 
 

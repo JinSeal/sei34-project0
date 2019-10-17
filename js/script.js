@@ -95,6 +95,7 @@ const joinPlayer = function(num) {
                 const message = `DRAW!`
                 showMsg(message);
                 playing = false;
+                localStorage.setItem('singlePlayer',JSON.stringify( singlePlayer));
                 localStorage.setItem("playing", playing);
                 (ttt.players[currentPlayerIndex]['winCounter']);
                 $('#turn').text(`~~~Play again!~~~`).css('text-align', 'center');
@@ -158,6 +159,7 @@ const joinPlayer = function(num) {
                 joinPlayer('1')
             }
             singlePlayer = true;
+            localStorage.setItem('singlePlayer',JSON.stringify( singlePlayer));
             $('#ai-dropbtn').text(text);
         } else {
             if ($('#player1-name').val() === "AI") {
@@ -170,6 +172,7 @@ const joinPlayer = function(num) {
             ttt.rmPlayer('AI');
             ttt.singlePlayer = false;
             singlePlayer = false;
+            localStorage.setItem('singlePlayer',JSON.stringify( singlePlayer));
             $('#ai-dropbtn').text(text);
         }
     }
@@ -207,6 +210,14 @@ const loadingLocalStorage = () => {
     size = JSON.parse(localStorage['size']);
     msgBox = localStorage['msgBox'];
     $('#canvas-dropbtn').text(`${size} X ${size}`);
+
+    singlePlayer = JSON.parse(localStorage['singlePlayer'])
+    ttt.occupiedSpot = JSON.parse(localStorage['ttt.occupiedSpot'])
+    ttt.emptySpots = JSON.parse(localStorage['ttt.emptySpots'])
+    ttt.winCombo = JSON.parse(localStorage['ttt.winCombo'])
+
+    ttt.emptySpotsEasyLevel = JSON.parse(localStorage['ttt.emptySpotsEasyLevel'])
+    ttt.emptySpotsHardLevel = JSON.parse(localStorage['ttt.emptySpotsHardLevel'])
 
 
     if (ttt.players.length === 1) {
