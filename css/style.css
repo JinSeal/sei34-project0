@@ -38,8 +38,6 @@ h1 span {
 
 }
 
-
-
 h2 {
     font-family: "Fascinate Inline", sans-serif;
     color: orange;
@@ -47,7 +45,21 @@ h2 {
     margin: 0 10%;
 }
 
+p {
+    font-family: "Mansalva", sans-serif;
+    font-size: 24px;
+}
 
+button {
+    margin: 3vh auto;
+    width: 35%;
+    padding: 1vh;
+    text-align: center;
+    border-radius: 15px;
+    font-family: "Fascinate Inline", sans-serif;
+    font-size: 30px;
+    color: white;
+}
 
 .container {
     display: grid;
@@ -94,6 +106,43 @@ h2 {
     flex-direction: column;
 }
 
+.functions {
+    display: grid;
+    grid-template-columns: 25% 25% 28% 20% 2%;
+    width: 100%;
+    background-color: antiquewhite;
+}
+
+.functions button {
+    width: 80%;
+    padding: 0;
+    height: 3vw;
+}
+.memory {
+    background-color: lightgray;
+}
+
+.memory:hover {
+    background-color: white;
+    border: 5px inset lightgray;
+    color: lightgray;
+}
+
+.ai-component, .canvas-component {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+}
+
+h3 {
+    font-family: "Fascinate Inline", sans-serif;
+    font-size: 35px;
+    color: orange;
+    display: inline-block;
+}
+
 .indicator {
     display: flex;
     align-items: center;
@@ -103,11 +152,12 @@ h2 {
 }
 
 .indicator > p{
-    margin: 0 auto 1vw auto;
+    margin: 0 auto 2vw auto;
     color: orange;
     background-color: white;
     border-radius: 15px;
     width: 33vw;
+    font-size: 30px;
     text-align: center;
     border: 1px solid lightblue ;
 
@@ -148,23 +198,15 @@ td:hover {
     margin: 0 2vw 0vw 2vw;
 }
 
-button {
-    margin: 3vh auto;
-    width: 35%;
-    padding: 1vh;
-    text-align: center;
-    border-radius: 15px;
-    font-family: "Fascinate Inline", sans-serif;
-    font-size: 30px;
-    color: white;
-}
 
 button:focus {
     outline: 0;
 }
 button.play {
+    width: 90%
     display: inline-block;
     background-color: orange;
+    padding: 0;
 }
 button.join {
     background-color: lightblue;
@@ -288,22 +330,6 @@ span {
     height: 200px;
     text-align: center;
     margin: 4% 5% auto 5%;
-}
-
-h2 > span {
-
-}
-
-
-.function-box {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-}
-#canvas {
-    margin: 0 2vw;
-    padding-top: 0;
 }
 
 .dropbtn {
