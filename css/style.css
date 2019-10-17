@@ -15,10 +15,6 @@ header {
     text-align:center
 }
 
-div.blobs_ {
-    display:block;
-    position:absolute;
-}
 
 h1 {
     background-color: lightblue;

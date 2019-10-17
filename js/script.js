@@ -293,8 +293,10 @@ const setup = function() {
             if (ttt.players[currentPlayerIndex]['name'] === "AI" && ttt.emptySpots.length === $('td').length) {
                 updateAIMoves();
             } else {
-                updateMoves(event.target);
-                updateAIMoves();
+                if (updateMoves(event.target)) {
+                    updateAIMoves();
+                };
+
             }
 
         } else {

@@ -133,10 +133,10 @@ const ttt = {
             this.occupiedSpot.push([row, column]);
 
             return true
+        } else {
+            console.log(`Position has been taken.`);
+            return false;
         }
-        console.log(`Position has been taken.`);
-        return false;
-
     },
 
     winCheck: function(currentPlayerIndex,symbol) {
@@ -276,6 +276,12 @@ const ttt = {
                 }
             }
         }
+
+        for (let i of this.emptySpots) {
+            if (i[0] === i[1]) {
+                return i;
+            }
+        }
         return  this.aiEasy();
     },
 
@@ -290,7 +296,7 @@ const ttt = {
         this.makeMove(playerIndex, String(pos[0]), String(pos[1]));
         console.log(pos);
         return pos;
-}
+    }
 }
 
 
