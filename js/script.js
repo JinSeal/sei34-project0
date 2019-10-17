@@ -211,13 +211,13 @@ const loadingLocalStorage = () => {
     msgBox = localStorage['msgBox'];
     $('#canvas-dropbtn').text(`${size} X ${size}`);
 
-    singlePlayer = JSON.parse(localStorage['singlePlayer'])
-    ttt.occupiedSpot = JSON.parse(localStorage['ttt.occupiedSpot'])
-    ttt.emptySpots = JSON.parse(localStorage['ttt.emptySpots'])
-    ttt.winCombo = JSON.parse(localStorage['ttt.winCombo'])
-
-    ttt.emptySpotsEasyLevel = JSON.parse(localStorage['ttt.emptySpotsEasyLevel'])
-    ttt.emptySpotsHardLevel = JSON.parse(localStorage['ttt.emptySpotsHardLevel'])
+    // singlePlayer = JSON.parse(localStorage['singlePlayer'])
+    // ttt.occupiedSpot = JSON.parse(localStorage['ttt.occupiedSpot'])
+    // ttt.emptySpots = JSON.parse(localStorage['ttt.emptySpots'])
+    // ttt.winCombo = JSON.parse(localStorage['ttt.winCombo'])
+    //
+    // ttt.emptySpotsEasyLevel = JSON.parse(localStorage['ttt.emptySpotsEasyLevel'])
+    // ttt.emptySpotsHardLevel = JSON.parse(localStorage['ttt.emptySpotsHardLevel'])
 
 
     if (ttt.players.length === 1) {

@@ -89,7 +89,7 @@ button {
 .photo {
     width: 20vw;
     height: 20vw;
-    margin: 5vh auto;
+    margin: 1vh auto;
     /* margin-bottom: 20vh; */
     background-color: white;
     border-radius: 10px;
@@ -103,9 +103,12 @@ button {
 }
 
 .functions {
-    display: grid;
-    grid-template-columns: 25% 25% 28% 20% 2%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /* grid-template-columns: 25% 25% 28% 20% 2%; */
     width: 100%;
+    padding: 0 2vw;
     background-color: antiquewhite;
 }
 
@@ -114,21 +117,34 @@ button {
     padding: 0;
     height: 3vw;
 }
-.memory {
+button.memory {
+    width: 20%;
     background-color: lightgray;
 }
+button.play {
+    width: 25%;
+    display: inline-block;
+    background-color: orange;
+    padding: 0;
+}
 
-.memory:hover {
+button.play:hover {
+    border: 5px inset orange;
+    background-color: white;
+    color: orange;
+}
+button.memory:hover {
     background-color: white;
     border: 5px inset lightgray;
     color: lightgray;
 }
 
 .ai-component, .canvas-component {
+    width: 35%
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin: 0;
+    margin: 0 2vw;
     padding: 0;
 }
 
@@ -198,12 +214,7 @@ td:hover {
 button:focus {
     outline: 0;
 }
-button.play {
-    width: 90%
-    display: inline-block;
-    background-color: orange;
-    padding: 0;
-}
+
 button.join {
     background-color: lightblue;
 }
@@ -243,11 +254,6 @@ button:hover {
 }
 
 
-button.play:hover {
-    border: 5px inset orange;
-    background-color: white;
-    color: orange;
-}
 
 button.join:hover {
     background-color: white;
