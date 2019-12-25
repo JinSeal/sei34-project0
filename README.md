@@ -7,9 +7,6 @@
 
 ### 2. Add image token and enable selection
 
-### 3. Restructuring js files.
-> To have localStorage and ai in separate files.
-
 ### 4. Debugging
     * disable click on buttons and input during while game is on
     * formatting issues here and there
@@ -25,4 +22,4 @@ ___Estimated deliver time:___  2020 for README.md
 
 
 
-# __Thanks for your patiences!!!__  
+# __Thanks for your patience!!!__  
