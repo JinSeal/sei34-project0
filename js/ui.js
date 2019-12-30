@@ -1,3 +1,16 @@
+// ui.js
+//
+// Controls the high level game logic including:
+// - Setting up the players.
+// - Taking turns.
+// - Starting and stopping games.
+// - Other UI based behaviour.
+//
+// Potential Improvements:
+// - Unify the local storage code
+// - Fix some remaining bugs
+
+/* eslint-disable no-undef */
 
 const joinPlayer = function (num) {
   const name = $('#player' + num + '-name').val()
@@ -21,7 +34,6 @@ const joinPlayer = function (num) {
 }
 
 const removePlayer = function (num) {
-  console.log('true')
   const name = $('#player' + num + '-name').val()
   ttt.rmPlayer(name)
   const message = `${name} left...`
@@ -32,82 +44,72 @@ const removePlayer = function (num) {
   $(`#player${num}-photo img`).attr('src', '')
 }
 
-const updateMoves = function (node) {
-  const row = $(node).attr('id')[1]
-  const column = $(node).attr('id')[3]
+const playerMove = function (node) {
+  const row = parseInt($(node).attr('id')[1])
+  const column = parseInt($(node).attr('id')[3])
   const symbol = ttt.players[currentPlayerIndex].symbol
-  const img = ttt.players[currentPlayerIndex].img
+
   if (ttt.makeMove(currentPlayerIndex, row, column)) {
     $(node).text(symbol)
-    if (ttt.winCheck(currentPlayerIndex, symbol)) {
-      const message = `Yeah! ${ttt.players[currentPlayerIndex].name} wins!`
-      showMsg(message)
-      playing = false
-      setTimeout(playButtonToggle(), 1500)
-      $(`#player${currentPlayerIndex + 1}-win-counter`).text(ttt.players[currentPlayerIndex].winCounter)
-      $('#turn').text('~~~Play again!~~~').css('text-align', 'center')
-
-      localStorage.setItem('move', '0')
-      localStorage.setItem('ttt.board', '[]')
-      localStorage.setItem('playing', playing)
-    } else if (moves === $('td').length - 1) {
-      const message = 'DRAW!'
-      showMsg(message)
-      playing = false
-      localStorage.setItem('playing', playing);
-      $('#turn').text('~~~Play again!~~~').css('text-align', 'center')
-    } else {
-      currentPlayerIndex = 1 - currentPlayerIndex
-      localStorage.setItem('currentPlayerIndex', currentPlayerIndex)
-      moves += 1
-      showCurrentPlayer()
-      localStorage.setItem('moves', moves)
-      return true
-    }
+    return postMove(symbol)
   }
 }
 
-const updateAIMoves = function () {
+const aiMove = function () {
   const symbol = ttt.players[currentPlayerIndex].symbol
   let pos
 
   if ($('#ai-dropbtn').text() === 'Easy') {
     pos = ttt.aiEasyMove(currentPlayerIndex)
   } else if ($('#ai-dropbtn').text() === 'Hard') {
-    console.log('ture')
     pos = ttt.aiHardMove(currentPlayerIndex)
-    console.log(pos)
   }
 
   if (pos) {
     $(`#r${pos[0]}c${pos[1]}`).text(symbol)
-    if (ttt.winCheck(currentPlayerIndex, symbol)) {
-      const message = `Yeah! ${ttt.players[currentPlayerIndex].name} wins!`
-      showMsg(message)
-      playing = false
-      setTimeout(playButtonToggle(), 1500)
-      $(`#player${currentPlayerIndex + 1}-win-counter`).text(ttt.players[currentPlayerIndex].winCounter)
-      $('#turn').text('~~~Play again!~~~').css('text-align', 'center')
-
-      localStorage.setItem('move', '0')
-      localStorage.setItem('ttt.board', '[]')
-      localStorage.setItem('playing', playing)
-    } else if (moves === $('td').length - 1) {
-      const message = 'DRAW!'
-      showMsg(message)
-      playing = false
-      localStorage.setItem('singlePlayer', JSON.stringify(singlePlayer));
-      ( ttt.players[ currentPlayerIndex ].winCounter )
-      $('#turn').text('~~~Play again!~~~').css('text-align', 'center')
-    } else {
-      currentPlayerIndex = 1 - currentPlayerIndex
-      localStorage.setItem('currentPlayerIndex', currentPlayerIndex)
-      moves += 1
-      showCurrentPlayer()
-      localStorage.setItem('moves', moves)
-      return true
-    }
+    return postMove(symbol)
   }
+}
+
+const postMove = function (symbol) {
+  if (ttt.winCheck(currentPlayerIndex, symbol)) {
+    doWin(ttt.players[currentPlayerIndex].name,
+      currentPlayerIndex,
+      ttt.players[currentPlayerIndex].winCounter)
+  } else if (moves === $('td').length - 1) {
+    doDraw()
+  } else {
+    currentPlayerIndex = 1 - currentPlayerIndex
+    localStorage.setItem('currentPlayerIndex', currentPlayerIndex)
+    moves += 1
+    showCurrentPlayer()
+    localStorage.setItem('moves', moves)
+    return true
+  }
+}
+
+const doDraw = function () {
+  showMsg('DRAW!')
+  playing = false
+  localStorage.setItem('playing', playing)
+  $('#turn').text('~~~Play again!~~~').css('text-align', 'center')
+}
+
+const doWin = function (name, playerIndex, totalWins) {
+  const message = `Yeah! ${name} wins!`
+  showMsg(message)
+  playing = false
+  setTimeout(playButtonToggle(), 1500)
+  $(`#player${playerIndex + 1}-win-counter`).text(totalWins)
+  $('#turn').text('~~~Play again!~~~').css('text-align', 'center')
+
+  localStorage.setItem('move', '0')
+  localStorage.setItem('ttt.board', '[]')
+  localStorage.setItem('playing', playing)
+
+  localStorage.setItem('move', '0')
+  localStorage.setItem('ttt.board', '[]')
+  localStorage.setItem('playing', playing)
 }
 
 const resetBoard = function () {
@@ -219,11 +221,11 @@ const loadingLocalStorage = () => {
     $('#player1-name').val(ttt.players[0].name)
     $('#player1-symbol').val(ttt.players[0].symbol)
     $('#player1-win-counter').text(ttt.players[0].winCounter)
-    $(`#player1-photo img`).attr('src', ttt.players[0].img)
+    $('#player1-photo img').attr('src', ttt.players[0].img)
     $('#player2-name').val(ttt.players[1].name)
     $('#player2-symbol').val(ttt.players[1].symbol)
     $('#player2-win-counter').text(ttt.players[1].winCounter)
-    $(`#player2-photo img`).attr('src', ttt.players[1].img)
+    $('#player2-photo img').attr('src', ttt.players[1].img)
   }
 
   if (playing) {
@@ -250,7 +252,7 @@ let size = 3
 let singlePlayer = false
 
 const setup = function () {
-  if (localStorage['ttt.players'] && !localStorage['ttt.players'].length <= 2 ) {
+  if (localStorage['ttt.players'] && !localStorage['ttt.players'].length <= 2) {
     try {
       loadingLocalStorage()
     } catch (error) {
@@ -290,27 +292,28 @@ const setup = function () {
     showMsg(message)
   })
 
+  // display profile image picker
   $('.photo').click((event) => {
     $('.image-box').show()
-    $(".image-wrap img").click((node) => {
-      let src = $(node.srcElement).attr('src')
+    $('.image-wrap img').click((node) => {
+      const src = $(node.srcElement).attr('src')
       $(event.srcElement).attr('src', src)
-      $(".image-box").hide()
+      $('.image-box').hide()
       $('.image-wrap img').unbind()
     })
-   })
+  })
 
   $(document).on('click', 'td', (event) => {
     if (singlePlayer) {
       if (ttt.players[currentPlayerIndex].name === 'AI' && ttt.emptySpots.length === $('td').length) {
-        updateAIMoves()
+        aiMove()
       } else {
-        if (updateMoves(event.target)) {
-          updateAIMoves()
+        if (playerMove(event.target)) {
+          aiMove()
         };
       }
     } else {
-      updateMoves(event.target)
+      playerMove(event.target)
     }
   })
 }

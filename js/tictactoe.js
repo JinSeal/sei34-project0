@@ -1,11 +1,25 @@
+// tictactoe.js
+//
+// Contains a ttt object that:
+// - controls a gmae of Tic Tac Toe;
+// - Includes an optional AI player;
+// - Saves game state, players and scores to localstorage;
 
-// #__Planning log__
-// 1 player object;
-// 2 initiate board;
-// 3 winRules()
-// 4 makeMove()
-// 5 checkWin()
-// 6 AI moves()
+// To use ttt:
+// 1. Call ttt.initPlayer once or twice.
+// 2. Call ttt.initBoard.
+// 3. Call ttt.makeMove and ttt.checkWin to play the game.
+// 4. Call ttt.reset to reset board.
+// 5. Call ttt.rmPlayer to remove a player.
+// 6. Call ttt.aiRandom, ttt.aiEasy, ttt.aiHard to generate a computer counter-play position.
+// 7. Call ttt.aiEasyMove, ttt.aiHardMove to make a computer counter-play movement.
+
+// Possible improvments:
+// 1. Separate AI methods from ttt object.
+// 2. Fix the bug that AI movements always start at 1 * 1.
+// 3. Improve AI logic to plan a win.
+
+/* eslint-disable no-undef */
 
 const ttt = {
 
@@ -14,6 +28,8 @@ const ttt = {
   size: 3,
   occupiedSpot: [],
   singlePlayer: false,
+
+  // player can make a move if true
   isBoardActive: false,
 
   initPlayer: function (id, name, symbol, img) {
@@ -23,7 +39,7 @@ const ttt = {
       player = { id, name, symbol, winCounter, img }
       this.players.push(player)
     }
-    // validation and sort players order
+    // check if it is single player
     if (this.players.length === 2) {
       if (this.players[0].name === 'AI') {
         this.players[0].id = '3'
@@ -32,7 +48,6 @@ const ttt = {
         this.players[1].id = '3'
         this.singlePlayer = true
       }
-
       if (this.players[0].id > this.players[1].id) {
         this.players = this.players.reverse()
       }
@@ -61,6 +76,8 @@ const ttt = {
       }
     }
     localStorage.setItem('ttt.board', JSON.stringify(this.board))
+
+    // this.genEmptySpots and this.genWinCombo are generated for making AI movements.
     this.genEmptySpots()
     this.genWinCombo()
     this.isBoardActive = true
@@ -201,7 +218,7 @@ const ttt = {
   updateEmptySpots: function (row, column) {
     let i = 0
     for (i; i < this.emptySpots.length; ++i) {
-      if (this.emptySpots[i][0] == row && this.emptySpots[i][1] == column) {
+      if (this.emptySpots[i][0] === row && this.emptySpots[i][1] === column) {
         break
       }
     }
@@ -215,11 +232,11 @@ const ttt = {
 
   aiEasy: function () {
     this.emptySpotsEasyLevel = []
-    if (this.occupiedSpot.length < 2) {
+    if (this.occupiedSpot.length < 1) {
       return this.aiRandomMove()
     } else {
       const lastMove = this.occupiedSpot[this.occupiedSpot.length - 1]
-      console.log(lastMove)
+      // console.log(lastMove)
       for (const i of this.emptySpots) {
         if (Math.abs(i[0] - Number(lastMove[0])) <= 1 && Math.abs(i[1] - Number(lastMove[1])) <= 1) {
           this.emptySpotsEasyLevel.push(i)
@@ -237,6 +254,7 @@ const ttt = {
     const player = this.players[0]
     let winPoint
 
+    // if the AI can win in the next move, choose it
     for (const combo of this.winCombo) {
       let counter = 0
 
@@ -267,10 +285,11 @@ const ttt = {
     const defendCombo = []
     const filteredComboLength = filteredCombo.length
     for (const combo1 of this.winCombo) {
-      for (const i in filteredCombo) {
-        if (JSON.stringify(combo1) === JSON.stringify(filteredCombo[i])) {
+      for (const index in filteredCombo) {
+        if (JSON.stringify(combo1) === JSON.stringify(filteredCombo[index])) {
           break
-        } else if (i === filteredComboLength - 1) {
+        // eslint-disable-next-line eqeqeq
+        } else if (index == filteredComboLength - 1) {
           defendCombo.push(combo1)
         }
       }
@@ -313,14 +332,16 @@ const ttt = {
   },
 
   aiEasyMove: function (playerIndex) {
+    console.log('easy')
     const pos = this.aiEasy()
-    this.makeMove(playerIndex, String(pos[0]), String(pos[1]))
+    this.makeMove(playerIndex, pos[0], pos[1])
     return pos
   },
 
   aiHardMove: function (playerIndex) {
+    console.log('hard')
     const pos = this.aiHard()
-    this.makeMove(playerIndex, String(pos[0]), String(pos[1]))
+    this.makeMove(playerIndex, pos[0], pos[1])
     return pos
   }
 
