@@ -2,15 +2,16 @@
 const joinPlayer = function (num) {
   const name = $('#player' + num + '-name').val()
   const symbol = $(`#player${num}-symbol`).val()
+  const img = $(`#player${num}-photo`).attr('src')
 
   if (name && symbol) {
-    ttt.initPlayer(num, name, symbol)
+    ttt.initPlayer(num, name, symbol, img)
     console.log(`${name} joins with symbol ${symbol}`)
-    console.log(ttt.players)
     let message = `${name} joined!  We have ${ttt.players.length} player in the game.`
     if (ttt.players.length >= 2) {
       message = `${name} joined!  We have ${ttt.players.length} players in the game.`
     }
+
     showMsg(message)
     $(`#player${num}-win-counter`).text(0)
   } else {
@@ -25,15 +26,17 @@ const removePlayer = function (num) {
   ttt.rmPlayer(name)
   const message = `${name} left...`
   showMsg(message)
-  $(`#player${num}-win-counter`).text(0)
+  $(`#player${num}-win-counter`).text('')
   $('#player' + num + '-name').val('')
   $(`#player${num}-symbol`).val('')
+  $(`#player${num}-photo img`).attr('src', '')
 }
 
 const updateMoves = function (node) {
   const row = $(node).attr('id')[1]
   const column = $(node).attr('id')[3]
   const symbol = ttt.players[currentPlayerIndex].symbol
+  const img = ttt.players[currentPlayerIndex].img
   if (ttt.makeMove(currentPlayerIndex, row, column)) {
     $(node).text(symbol)
     if (ttt.winCheck(currentPlayerIndex, symbol)) {
@@ -52,7 +55,6 @@ const updateMoves = function (node) {
       showMsg(message)
       playing = false
       localStorage.setItem('playing', playing);
-      (ttt.players[currentPlayerIndex].winCounter)
       $('#turn').text('~~~Play again!~~~').css('text-align', 'center')
     } else {
       currentPlayerIndex = 1 - currentPlayerIndex
@@ -173,16 +175,6 @@ const chooseAI = (node) => {
     $('#ai-dropbtn').text(text)
   }
 }
-//
-// const setState = (data) => {
-//     for(const key in data) {
-//         localStorage.setItem(key, JSON.stringify(data[key]));
-//     }
-// }
-//
-// const getState = () => {
-//     // ....
-// }
 
 const buildBoard = () => {
   $('table').text('')
@@ -217,26 +209,21 @@ const loadingLocalStorage = () => {
   msgBox = localStorage.msgBox
   $('#canvas-dropbtn').text(`${size} X ${size}`)
 
-  // singlePlayer = JSON.parse(localStorage['singlePlayer'])
-  // ttt.occupiedSpot = JSON.parse(localStorage['ttt.occupiedSpot'])
-  // ttt.emptySpots = JSON.parse(localStorage['ttt.emptySpots'])
-  // ttt.winCombo = JSON.parse(localStorage['ttt.winCombo'])
-  //
-  // ttt.emptySpotsEasyLevel = JSON.parse(localStorage['ttt.emptySpotsEasyLevel'])
-  // ttt.emptySpotsHardLevel = JSON.parse(localStorage['ttt.emptySpotsHardLevel'])
-
   if (ttt.players.length === 1) {
     const num = ttt.players[0].index
     $(`#player${num}-name`).val(ttt.players[0].name)
     $(`#player${num}-symbol`).val(ttt.players[0].symbol)
     $(`#player${num}-win-counter`).text(ttt.players[0].winCounter)
+    $(`#player${num}-photo img`).attr('src', ttt.players[0].img)
   } else if (ttt.players.length === 2) {
     $('#player1-name').val(ttt.players[0].name)
     $('#player1-symbol').val(ttt.players[0].symbol)
     $('#player1-win-counter').text(ttt.players[0].winCounter)
+    $(`#player1-photo img`).attr('src', ttt.players[0].img)
     $('#player2-name').val(ttt.players[1].name)
     $('#player2-symbol').val(ttt.players[1].symbol)
     $('#player2-win-counter').text(ttt.players[1].winCounter)
+    $(`#player2-photo img`).attr('src', ttt.players[1].img)
   }
 
   if (playing) {
@@ -263,8 +250,12 @@ let size = 3
 let singlePlayer = false
 
 const setup = function () {
-  if (localStorage.length) {
-    loadingLocalStorage()
+  if (localStorage['ttt.players'] && !localStorage['ttt.players'].length <= 2 ) {
+    try {
+      loadingLocalStorage()
+    } catch (error) {
+      console.log('Error loading from local storage: ' + error)
+    }
   }
 
   playButtonToggle()
@@ -299,6 +290,16 @@ const setup = function () {
     showMsg(message)
   })
 
+  $('.photo').click((event) => {
+    $('.image-box').show()
+    $(".image-wrap img").click((node) => {
+      let src = $(node.srcElement).attr('src')
+      $(event.srcElement).attr('src', src)
+      $(".image-box").hide()
+      $('.image-wrap img').unbind()
+    })
+   })
+
   $(document).on('click', 'td', (event) => {
     if (singlePlayer) {
       if (ttt.players[currentPlayerIndex].name === 'AI' && ttt.emptySpots.length === $('td').length) {
@@ -313,10 +314,5 @@ const setup = function () {
     }
   })
 }
-
-// to do list:
-// token with picture
-// online game
-// readme.md
 
 $(document).ready(setup)

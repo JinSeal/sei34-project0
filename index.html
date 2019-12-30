@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
+    <meta view = "viewport" content='width=device-width, initial-scale=1.0'>
     <title>Tic Tac Toe</title>
     <script src="js/jquery-1.7.2.js" charset="utf-8"></script>
     <script src="js/tictactoe.js" charset="utf-8"></script>
@@ -13,7 +14,7 @@
         <h1><span>T</span><span>I</span><span>C</span><br><span>T</span><span>A</span><span>C</span><br><span>T</span><span>O</span><span>E</span></h1>
         <div class='functions'>
                 <div classs='canvas-component'>
-                    <h3 class="text" id="canvas">Canvas: </h3>
+                    <h3 class="text" id="canvas">Grid: </h3>
                     <div class="dropdown">
                         <button class="dropbtn" id='canvas-dropbtn'>3 X 3</button>
                         <div class="dropdown-content" id='canvas-content'>
@@ -24,7 +25,7 @@
                     </div>
                 </div>
                 <div class='ai-component'>
-                    <h3 class="text" id="ai">Mr AI: </h3>
+                    <h3 class="text" id="ai">AI: </h3>
                     <div class="dropdown">
                         <button class="dropbtn" id='ai-dropbtn'>None</button>
                         <div class="dropdown-content" id='ai-content'>
@@ -45,11 +46,11 @@
             <div class="player-container" >
                 <div class= "player" id="player1">
                     <h2>Player 1 <span id="player1-marker"></span></h2>
-                    <p>Name: <input type="text" class="name-input" id="player1-name" value="Seal"></p>
-                    <p>Symbol: <input type="text" class="symbol" id="player1-symbol" value="X"></p>
-                    <p>Win counter:<span id="player1-win-counter"> 0 </span></p>
+                    <p>Name: <input type="text" class="name-input" id="player1-name"></p>
+                    <p>Symbol: <input type="text" class="symbol" id="player1-symbol"></p>
+                    <p>Win counter:<span id="player1-win-counter">  </span></p>
                     <div class="photo" id="player1-photo">
-                        <img src="images/thuglige.jpg" width="280px" height="280px" alt="">
+                        <img src="images/profile.png" width="280px" height="280px" alt="">
                     </div>
                     <div class="button-box" id='player1buttonbox'>
                         <button type="button" class="join" id="play1join">Join
@@ -84,10 +85,12 @@
             <div class="player-container" >
                 <div class= "player" id="player2">
                     <h2>Player 2<span id="player2-marker"></span></h2>
-                    <p>Name: <input type="text" class="name-input" value='Big cat' id="player2-name"></p>
-                    <p>Symbol: <input type="text" class="symbol" value="O" id="player2-symbol"></p>
-                    <p>Win counter: <span id="player2-win-counter"> 0 </span></p>
-                    <div class="photo" id="player2-photo">                        <img src="images/8a7d1f40a77f99f287c3f2f1eff0d392.jpg" width="280px" height="280px" alt=""></div>
+                    <p>Name: <input type="text" class="name-input" id="player2-name"></p>
+                    <p>Symbol: <input type="text" class="symbol" id="player2-symbol"></p>
+                    <p>Win counter: <span id="player2-win-counter">  </span></p>
+                    <div class="photo" id="player2-photo">                        
+                        <img src="images/profile.png" width="280px" height="280px" alt="">
+                    </div>
                     <div class="button-box" id='player2buttonbox'>
                         <button type="button" class="join" id="play2join">Join
                         </button>
@@ -107,6 +110,21 @@
             Okay!
         </button>
 
+    </div>
+
+    <div class="image-box">
+    <h1>Choose an image</h1>
+    <div class="image-wrap">
+    <img src="images/8a7d1f40a77f99f287c3f2f1eff0d392.jpg" />
+    <img src="images/246x0w.jpg" />
+    <img src="images/JerryMouse.png" />
+    <img src="images/mrsquiggle.png" />
+    <img src="images/Ponyo-PonyoFish.png" />
+    <img src="images/thugpug.jpg" />
+    <img src="images/thuglige.jpg" />
+    <img src="images/jigglypuff.png" />
+    <img src="images/Tom_Tom_and_Jerry.png" />
+    </div>
     </div>
 </body>
 </html>

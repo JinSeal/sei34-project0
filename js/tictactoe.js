@@ -16,10 +16,11 @@ const ttt = {
   singlePlayer: false,
   isBoardActive: false,
 
-  initPlayer: function (id, name, symbol) {
+  initPlayer: function (id, name, symbol, img) {
+    let player
     if (this.players.length < 2) {
       const winCounter = 0
-      const player = { id, name, symbol, winCounter }
+      player = { id, name, symbol, winCounter, img }
       this.players.push(player)
     }
     // validation and sort players order
