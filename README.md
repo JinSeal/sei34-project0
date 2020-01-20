@@ -7,6 +7,9 @@ Scores, players, and the current game state is saved to local storage.
 
 The purpose of this project was solidify my understanding of manipulating the DOM via jquery and CSS.
 
+DEMO:
+![Demo](TTT.gif)
+
 ## How to play
 
 Go to: https://jinseal.github.io/GA-SEI34-Project0-TicTacToe/
